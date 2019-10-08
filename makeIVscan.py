@@ -67,4 +67,5 @@ hvONOFF=c0.getChStatus()
 print "Waiting for CH0 to be off"
 while (hvONOFF!=0):
     hvONOFF=c0.getChStatus()
+    sleep(1)
     print "Retrying"
