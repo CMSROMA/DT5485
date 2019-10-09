@@ -15,11 +15,11 @@ class DT5485ControlPanel(npyscreen.ActionForm):
         self.__class__.CANCEL_BUTTON_BR_OFFSET = (2, 15)
 
         # Add the TitleText widget to the form
-        self.port = self.add(npyscreen.TitleText, name="BOARD", value="/dev/dt5485_sn48", editable=False)
+        self.port = self.add(npyscreen.TitleFilename, name="BOARD       :", value="/dev/dt5485_sn48", editable=False)
         self.dt5485 = DT5485(self.port.value)
-        self.idString =  self.add(npyscreen.TitleText, name="BOARD ID", value="****  %s ID %d S/N %d   ****"%(self.dt5485.model,self.dt5485.product, self.dt5485.sn), editable=False)
+        self.idString =  self.add(npyscreen.TitleText, name="BOARD ID    :", value="****  %s ID %d S/N %d   ****"%(self.dt5485.model,self.dt5485.product, self.dt5485.sn), editable=False)
         self.chStatus = self.dt5485.getChStatus()
-        self.switch = self.add(npyscreen.Checkbox, name = "ON/OFF", scroll_exit=True)
+        self.switch = self.add(npyscreen.Checkbox, name = "ON/OFF", scroll_exit=True, rely=5)
         if (self.chStatus):
             self.switch.value=True
         else:
@@ -28,9 +28,9 @@ class DT5485ControlPanel(npyscreen.ActionForm):
         self.vset = self.add(npyscreen.TitleText, name="VSET [20-80]:", value=str(self.vset_target))
         self.vmon = self.add(npyscreen.TitleText, name="VMON        :", value="", editable=False)
         self.imon = self.add(npyscreen.TitleText, name="IMON        :", value="", editable=False)
-        self.monitorSwitch = self.add(npyscreen.Checkbox, name = "Write to file", scroll_exit=True)
+        self.monitorSwitch = self.add(npyscreen.Checkbox, name = "Write to file", scroll_exit=True, rely=10)
         self.writeToFile = self.monitorSwitch.value
-        self.outputFilename = self.add(npyscreen.TitleFilename, name="Output file:", value="test.csv")
+        self.outputFilename = self.add(npyscreen.TitleFilename, name="Output file :", value="test.csv")
 #        self.parentApp.setNextForm(None)
 
     def on_ok(self):
