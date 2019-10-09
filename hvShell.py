@@ -73,9 +73,7 @@ class DT5485ControlPanel(npyscreen.ActionForm):
         self.imon.display()
         if (self.writeToFile):
             self.csvWriter.writerow([str(int(self.chStatus)),str(self.vset_target),str(vout),str(iout),str(time.time())])
-#       
-#        Only here change the
-    # Override method that triggers when you click the "cancel"
+
     def on_cancel(self):
         self.parentApp.setNextForm(None)
         if (self.writeToFile):
