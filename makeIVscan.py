@@ -1,5 +1,6 @@
 from DT5485Wrapper import DT5485
 from time import sleep
+import time
 
 from optparse import OptionParser
 parser = OptionParser()
@@ -52,7 +53,7 @@ while (vset<=vmax):
     for i in range(0,nmeas):
         vout=c0.getChVOUT()
         iout=c0.getChIOUT()
-        csvWriter.writerow([str(vset),str(vout),str(iout)])
+        csvWriter.writerow(['1',str(vset),str(vout),str(iout),str(time.time())])
         print "%f,%f,%f"%(vset,vout,iout)
     vset+=vstep
     r=c0.setChVSET(vset)

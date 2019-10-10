@@ -1,12 +1,17 @@
 import serial
 from time import sleep
-
+from SerialClient import serialClient
 class DT5485:
     def __init__(self,port):
         self.port=port
-        self.serial = serial.Serial(port, 115200,timeout=0)
-        sleep(0.1)
+        if ('tcp://' in port):
+            self.serial = serialClient(port)
+        else:
+            self.serial = serial.Serial(port, 115200,timeout=0)
+
         self.serial.write('AT+MACHINE\r\n')
+        sleep(0.1)
+        r=self.serial.readline().strip()
         self.serial.write('AT+CGMI\r\n')
         sleep(0.1)
         self.manufacturer=self.serial.readline().strip()

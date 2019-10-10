@@ -15,9 +15,10 @@ class DT5485ControlPanel(npyscreen.ActionForm):
         self.__class__.CANCEL_BUTTON_BR_OFFSET = (2, 15)
 
         # Add the TitleText widget to the form
-        self.port = self.add(npyscreen.TitleFilename, name="BOARD       :", value="/dev/dt5485_sn48", editable=False)
+#        self.port = self.add(npyscreen.TitleFilename, name="BOARD       :", value="/dev/dt5485_sn48", editable=False)
+        self.port = self.add(npyscreen.TitleFilename, name="CONNECT     :", value="tcp://127.0.0.1:5000", editable=False)
         self.dt5485 = DT5485(self.port.value)
-        self.idString =  self.add(npyscreen.TitleText, name="BOARD ID    :", value="****  %s ID %d S/N %d   ****"%(self.dt5485.model,self.dt5485.product, self.dt5485.sn), editable=False)
+        self.idString =  self.add(npyscreen.TitleText,name="BOARD ID    :", value="****  %s ID %d S/N %d   ****"%(self.dt5485.model,self.dt5485.product, self.dt5485.sn), editable=False)
         self.chStatus = self.dt5485.getChStatus()
         self.switch = self.add(npyscreen.Checkbox, name = "ON/OFF", scroll_exit=True, rely=5)
         if (self.chStatus):

@@ -7,7 +7,7 @@ parser.add_option("-i","--input")
 (options,args)=parser.parse_args()
 
 IVData=R.TTree("IVData","IVData")
-IVData.ReadFile(options.input,"vset/F:vout/F:iout/F")
+IVData.ReadFile(options.input,"chStatus/I:vset/F:vout/F:iout/F:time/D")
 
 c1 = R.TCanvas("c1","c1",800,600)
 ivH=R.TH2F("ivH","ivH",300,44.45,74.45,4000,0.,2000.)
@@ -46,7 +46,7 @@ ivH_2.SetLineColor(R.kBlack)
 #ivH_2.Fit("pol0")
 #c1.SaveAs("IV_noise.png")
 
-
+print "Writing output to "+options.input.replace(".csv",".root")
 f=R.TFile(options.input.replace(".csv",".root"),"RECREATE")
 IVData.Write()
 ivH.Write()
