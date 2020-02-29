@@ -66,6 +66,10 @@ class DT5485:
         r=int(self.getRegister(1))
         return r
 
+    def setChMode(self):
+        r=self.setRegister(1,value)
+        return r
+
     def getChVSET(self):
         r=float(self.getRegister(2))
         return r
@@ -96,6 +100,18 @@ class DT5485:
 
     def getChIOUT(self):
         r=float(self.getRegister(232))
+        return r
+
+    def getChTEMP(self):
+        r=float(self.getRegister(234))
+        return r
+
+    def getChTCOEFF(self):
+        r=float(self.getRegister(28))
+        return r
+
+    def setChTCOEFF(self,value):
+        r=self.setRegister(28,value)
         return r
 
     def saveCurrentConfig(self):
