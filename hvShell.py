@@ -16,7 +16,7 @@ class DT5485ControlPanel(npyscreen.ActionForm):
 
         # Add the TitleText widget to the form
 #        self.port = self.add(npyscreen.TitleFilename, name="BOARD       :", value="/dev/dt5485_sn48", editable=False)
-        self.port = self.add(npyscreen.TitleFilename, name="CONNECT     :", value="tcp://127.0.0.1:5000", editable=False)
+        self.port = self.add(npyscreen.TitleFilename, name="CONNECT     :", value="tcp://10.0.0.34:5000", editable=False)
         self.dt5485 = DT5485(self.port.value)
         self.idString =  self.add(npyscreen.TitleText,name="BOARD ID    :", value="****  %s ID %d S/N %d   ****"%(self.dt5485.model,self.dt5485.product, self.dt5485.sn), editable=False)
         self.chStatus = self.dt5485.getChStatus()
@@ -32,9 +32,9 @@ class DT5485ControlPanel(npyscreen.ActionForm):
         else:
             self.tcorrSwitch.value=False
         self.vset_target=self.dt5485.getChVSET()
-        self.vset = self.add(npyscreen.TitleText, name="VSET [20-80]:", value=str(self.vset_target), rely=8)
+        self.vset = self.add(npyscreen.TitleText, name="VSET(20-80V):", value=str(self.vset_target), rely=8)
         self.tcoeff_target=self.dt5485.getChTCOEFF()
-        self.tcoeff = self.add(npyscreen.TitleText, name="TCOEF (mV/C):", value=str(self.tcoeff_target), editable=True)
+        self.tcoeff = self.add(npyscreen.TitleText, name="TCOEF(mV/C) :", value=str(self.tcoeff_target), editable=True)
 
         self.vmon = self.add(npyscreen.TitleText, name="VMON        :", value="", editable=False, rely=11)
         self.imon = self.add(npyscreen.TitleText, name="IMON        :", value="", editable=False)
