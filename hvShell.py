@@ -16,7 +16,7 @@ class DT5485ControlPanel(npyscreen.ActionForm):
 
         # Add the TitleText widget to the form
 #        self.port = self.add(npyscreen.TitleFilename, name="BOARD       :", value="/dev/dt5485_sn48", editable=False)
-        self.port = self.add(npyscreen.TitleFilename, name="CONNECT     :", value="tcp://10.0.0.34:5000", editable=False)
+        self.port = self.add(npyscreen.TitleFilename, name="CONNECT     :", value="tcp://10.0.0.106:5000", editable=False)
         self.dt5485 = DT5485(self.port.value)
         self.idString =  self.add(npyscreen.TitleText,name="BOARD ID    :", value="****  %s ID %d S/N %d   ****"%(self.dt5485.model,self.dt5485.product, self.dt5485.sn), editable=False)
         self.chStatus = self.dt5485.getChStatus()
