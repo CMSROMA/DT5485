@@ -44,6 +44,7 @@ class DT5485ControlPanel(npyscreen.ActionForm):
         self.writeToFile = self.monitorSwitch.value
         self.outputFilename = self.add(npyscreen.TitleFilename, name="Output file :", value="test.csv")
 #        self.parentApp.setNextForm(None)
+        self.counter=0
 
     def on_ok(self):
         if (float(self.vset.value)>80.):
@@ -94,18 +95,22 @@ class DT5485ControlPanel(npyscreen.ActionForm):
                 self.writeToFile = self.monitorSwitch.value
 
     def while_waiting(self):
-        vout=self.dt5485.getChVOUT()
-        iout=self.dt5485.getChIOUT()
-        tout=self.dt5485.getChTEMP()
-        self.vmon.value="%5.3f V"%vout
-        self.imon.value="%5.3f muA"%(iout*1000)
-        self.tmon.value="%5.3f C"%(tout)
-        self.vmon.display()
-        self.imon.display()
-        self.tmon.display()
-        self.tcoeff.display()
-        if (self.writeToFile):
-            self.csvWriter.writerow([str(int(self.chStatus)),str(self.vset_target),str(vout),str(iout),str(tout),str(time.time())])
+        if (self.counter%10==0):
+            vout=self.dt5485.getChVOUT()
+            iout=self.dt5485.getChIOUT()
+            tout=self.dt5485.getChTEMP()
+            self.vmon.value="%5.3f V"%vout
+            self.imon.value="%5.3f muA"%(iout*1000)
+            self.tmon.value="%5.3f C"%(tout)
+            self.vmon.display()
+            self.imon.display()
+            self.tmon.display()
+            self.tcoeff.display()
+            if (self.writeToFile):
+                self.csvWriter.writerow([str(int(self.chStatus)),str(self.vset_target),str(vout),str(iout),str(tout),str(time.time())])
+            self.counter=1
+        else:
+            self.counter+=1
 
     def on_cancel(self):
         self.dt5485.saveCurrentConfig()
